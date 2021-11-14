@@ -1,0 +1,22 @@
+diff --git a/src/drivers/Cairo/Fl_Cairo_Graphics_Driver.cxx b/src/drivers/Cairo/Fl_Cairo_Graphics_Driver.cxx
+index 881d2cbaf..d152d1557 100644
+--- a/src/drivers/Cairo/Fl_Cairo_Graphics_Driver.cxx
++++ b/src/drivers/Cairo/Fl_Cairo_Graphics_Driver.cxx
+@@ -55,7 +55,7 @@ static void draw_image_cb(void *data, int x, int y, int w, uchar *buf) {
+   curdata = cb_data->data + x*cb_data->D + y*cb_data->LD;
+   for (; x<last; x++) {
+     memcpy(buf, curdata, abs(cb_data->D));
+-    buf += abs(cb_data->D);
++    buf += int(abs(cb_data->D));
+     curdata += cb_data->D;
+   }
+ }
+@@ -536,7 +536,7 @@ void Fl_Cairo_Graphics_Driver::draw_image_mono(const uchar *data, int ix, int iy
+ {
+   struct callback_data cb_data;
+   if (!LD) LD = iw*abs(D);
+-  if (D<0) data += iw*abs(D);
++  if (D<0) data += iw*int(abs(D));
+   cb_data.data = data;
+   cb_data.D = D;
+   cb_data.LD = LD;
